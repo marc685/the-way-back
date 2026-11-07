@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { GameState } from './types';
+import { upgradeMember } from './profile';
 
 const KEY = 'famjam-state-v1';
 // Saves from before the app was renamed, read so families keep their progress.
@@ -14,7 +15,7 @@ export function loadState(): GameState {
     const raw = [KEY, ...OLD_KEYS].map((k) => localStorage.getItem(k)).find((v) => v != null);
     if (raw) {
       const s = JSON.parse(raw);
-      if (s?.version === 1) return { ...emptyState(), ...s };
+      if (s?.version === 1) return { ...emptyState(), ...s, members: (s.members ?? []).map(upgradeMember) };
     }
   } catch { /* storage unavailable – start fresh */ }
   return emptyState();

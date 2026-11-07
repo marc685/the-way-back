@@ -4,7 +4,8 @@ const [, , base = 'http://localhost:4173', out = 'shots'] = process.argv;
 
 (async () => {
   const browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+  const { devices } = require('playwright');
+  const page = await browser.newPage(process.env.DEVICE ? devices[process.env.DEVICE] : { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   let n = 0;
@@ -26,15 +27,36 @@ const [, , base = 'http://localhost:4173', out = 'shots'] = process.argv;
   await click(/Next: everyone/);
 
   const profiles = { Mom: 'baking', Dad: 'hiking', Liam: 'fishing', Zoe: 'drawing', Ben: 'soccer' };
+  const check = (cond, msg) => { if (!cond) throw new Error('CHECK FAILED: ' + msg); console.log('ok -', msg); };
   for (const [name, act] of Object.entries(profiles)) {
     await page.getByText(`${name}'s profile`).waitFor();
-    await click(`+ ${act}`);
-    await click('+ Gran');
-    await page.getByPlaceholder('e.g. the Naidoos').fill('the Naidoos');
-    await page.getByPlaceholder('e.g. the Naidoos').press('Enter');
-    await click(name === 'Liam' ? /Roblox credit/ : /Weekend away/);
-    await page.getByLabel('A parent agrees').check();
-    if (name === 'Liam') await shot('profile-liam');
+    const isAdult = name === 'Mom' || name === 'Dad';
+    if (name === 'Mom') {
+      // Activity typed but never "Add"-ed should still be saved.
+      await page.getByPlaceholder('e.g. fishing, baking').fill('baking');
+      await click(/Save &/);
+      check(await page.getByRole('alert').filter({ hasText: 'Choose at least one reward' }).count() === 1, 'save without a reward explains what is missing');
+      await click(/A spa day or massage/);
+      await click(/Date night/);
+      await page.getByLabel('Add my own reward').fill('A hike up Table Mountain');
+      await page.getByLabel('Add my own reward').press('Enter');
+      check(await page.locator('.reward.on').count() === 3, 'two ready-made rewards and one custom reward are selected');
+      check(await page.getByText('A parent agrees').count() === 0, 'adult is not asked for parent approval');
+      await shot('rewards-adult');
+    } else {
+      await click(`+ ${act}`);
+      await click('+ Gran');
+      await page.getByPlaceholder('e.g. the Naidoos').fill('the Naidoos');
+      await page.getByPlaceholder('e.g. the Naidoos').press('Enter');
+      if (name === 'Liam') { await click(/Roblox credit/); await click(/A sleepover with a friend/); }
+      else await click(/Weekend away/);
+      if (!isAdult) {
+        await click(/Save &/);
+        check(await page.getByRole('alert').filter({ hasText: 'parent' }).count() === 1, `${name}: child/teen needs parent approval`);
+        await page.getByLabel('A parent agrees').check();
+      }
+      if (name === 'Liam') await shot('profile-liam');
+    }
     await click(/Save &/);
   }
   await page.getByText("Who's playing today?").waitFor();
@@ -77,6 +99,8 @@ const [, , base = 'http://localhost:4173', out = 'shots'] = process.argv;
     await click(/Back to the family/);
   }
   await page.getByText(/completed the circle/).waitFor();
+  check(await page.getByRole('button', { name: 'Start a new circle' }).isDisabled(), 'must choose which reward to claim first');
+  await click(/A sleepover with a friend/);
   await shot('celebration');
   await click(/Start a new circle/);
   await click(/Family journal/);
@@ -91,6 +115,10 @@ const [, , base = 'http://localhost:4173', out = 'shots'] = process.argv;
   // Persistence check
   await page.reload();
   await page.getByText('The van der Merwe family').waitFor();
+  const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('famjam-state-v1')));
+  const mom = saved.members.find((m) => m.name === 'Mom');
+  check(mom.activities.includes('baking'), 'typed-but-not-added activity was saved');
+  check(mom.rewards.length === 3 && mom.rewards.includes('A hike up Table Mountain'), 'all of Mom\'s rewards were saved');
   console.log('card types seen:', [...seenTypes].join(', '));
   console.log('page errors:', errors.length ? errors : 'none');
   await browser.close();

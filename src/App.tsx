@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useGameState } from './lib/store';
+import { isProfileComplete } from './lib/profile';
 import type { Member } from './lib/types';
 import { SupportButton } from './components/SupportButton';
 import { SafetyNotice } from './screens/SafetyNotice';
@@ -24,7 +25,7 @@ export default function App() {
   const [state, setState] = useGameState();
   const [view, setView] = useState<View>(() => {
     if (!state.members.length) return { name: 'setup' };
-    const i = state.members.findIndex((m) => !m.rewardApproved);
+    const i = state.members.findIndex((m) => !isProfileComplete(m));
     return i >= 0 ? { name: 'profile', index: i } : { name: 'home' };
   });
 

@@ -73,8 +73,11 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); }
 .reward-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .reward { display: flex; align-items: center; gap: 8px; text-align: left; border: 2px solid var(--line); background: var(--surface);
   color: var(--ink); border-radius: 14px; padding: 10px; font: inherit; font-size: .9rem; cursor: pointer; min-height: 52px; }
-.reward span { font-size: 1.4rem; }
-.reward.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--surface)); font-weight: 800; }
+.reward .reward-icon { font-size: 1.4rem; }
+.reward .tick { font-weight: 800; font-size: 1rem; }
+.reward.on { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); font-weight: 800; }
+.problem { background: #fdecea; color: #8a1f11; border-radius: 12px; padding: 10px 12px; font-weight: 700; display: flex; flex-direction: column; gap: 4px; }
+.claim { width: 100%; display: flex; flex-direction: column; gap: 8px; }
 
 .home-head { display: flex; justify-content: space-between; align-items: flex-start; }
 .home-head p { margin: 0; }

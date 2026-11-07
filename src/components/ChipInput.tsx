@@ -20,7 +20,7 @@ export function ChipInput({ label, values, onChange, suggestions = [], placehold
         ))}
       </div>
       <form className="row" onSubmit={(e) => { e.preventDefault(); add(text); }}>
-        <input value={text} onChange={(e) => setText(e.target.value)} placeholder={placeholder ?? 'Type and press Add'} />
+        <input value={text} onChange={(e) => setText(e.target.value)} onBlur={() => text.trim() && add(text)} placeholder={placeholder ?? 'Type and press Add'} />
         <button className="btn small" type="submit">Add</button>
       </form>
       {remaining.length > 0 && (

@@ -5,7 +5,7 @@ import type { Card, Member } from './types';
 
 const mk = (p: Partial<Member>): Member => ({
   id: p.name!, name: p.name!, avatar: '🙂', age: 'adult', activities: [], extended: [], friends: [],
-  reward: '', rewardApproved: false, wedges: [], rounds: 0, ...p,
+  rewards: [], rewardApproved: false, wedges: [], rounds: 0, ...p,
 });
 
 const son = mk({ name: 'Liam', age: 'child', activities: ['fishing'], extended: ['Gran'] });

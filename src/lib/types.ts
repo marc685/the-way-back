@@ -10,8 +10,8 @@ export interface Member {
   activities: string[];
   extended: string[]; // extended family to connect with
   friends: string[]; // family friends to invite over
-  reward: string;
-  rewardApproved: boolean;
+  rewards: string[]; // one or more rewards; they pick one to claim when the circle is complete
+  rewardApproved: boolean; // parent approval – only needed for children and teens
   wedges: WedgeId[]; // wedges earned this round
   rounds: number; // completed rounds
   lastRollDate?: string; // YYYY-MM-DD

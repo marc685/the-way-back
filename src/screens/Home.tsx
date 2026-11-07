@@ -33,7 +33,7 @@ export function Home({ state, onPlay, onPaywall, onJournal, onEdit }: {
                 <span className="grow">
                   <b>{m.avatar} {m.name}</b>
                   <small className="muted">
-                    {m.wedges.length}/5 wedges · 🏆 {m.reward}{m.rounds ? ` · ${m.rounds} circle${m.rounds > 1 ? 's' : ''} done` : ''}
+                    {m.wedges.length}/5 wedges · 🏆 {m.rewards[0]}{m.rewards.length > 1 ? ` +${m.rewards.length - 1} more` : ''}{m.rounds ? ` · ${m.rounds} circle${m.rounds > 1 ? 's' : ''} done` : ''}
                   </small>
                 </span>
                 <span className={`pill ${m.currentCard ? 'warn' : played ? 'done' : ''}`}>
