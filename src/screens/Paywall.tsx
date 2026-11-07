@@ -7,7 +7,7 @@ export function Paywall({ onUnlock, onBack }: { onUnlock: () => void; onBack: ()
       <ul className="ticks card">
         <li>The full deck: 100+ cards across all five wedges</li>
         <li>Seasonal decks: holidays, school stress, new sibling, moving house</li>
-        <li>Deeper “Finding the Way Back” repair cards for teens and parents</li>
+        <li>Deeper “Coming Back Together” repair cards for teens and parents</li>
         <li>Clinician packs: decks your psychologist can assign <em>(coming soon)</em></li>
         <li>Unlimited family members and multiple households (e.g. co-parenting)</li>
       </ul>

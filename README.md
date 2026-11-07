@@ -8,7 +8,7 @@ and gets a personalised task card in one of five wedges:
 | 🌱 Finding Myself | Reconnecting with yourself |
 | ✉️ Finding Words | Letters/notes when talking is too hard |
 | 🤝 Finding Each Other | Everyday connection |
-| 🧭 Finding the Way Back | Rupture & repair (3-step reflection: what happened → how it felt → one step) |
+| 🧭 Coming Back Together | Rupture & repair (3-step reflection: what happened → how it felt → one step) |
 | 🎈 Play | Building something together |
 
 Collect all five wedges → unlock the reward you chose (approved by a parent).
