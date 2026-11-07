@@ -15,6 +15,8 @@ export interface Member {
   rounds: number; // completed rounds
   lastRollDate?: string; // YYYY-MM-DD
   currentCard?: DrawnCard;
+  nudges: boolean; // personal self-care prompts on/off
+  nudgeLog: NudgeLogEntry[]; // prompts this person has read
 }
 
 export interface Card {
@@ -23,7 +25,23 @@ export interface Card {
   type: CardType;
   child: string;
   adult: string;
+  ages?: AgeGroup[]; // who the idea suits (missing = everyone)
+  cost?: 'free' | 'low' | 'outing';
+  place?: 'home' | 'outside' | 'out';
+  time?: 'quick' | 'long';
+  withId?: string; // custom activities: a specific household member to do it with
 }
+
+/** An activity the family added themselves. Always free, drawn like any other card. */
+export interface CustomCard {
+  id: string;
+  wedge: WedgeId;
+  text: string; // e.g. "Go fishing at the dam"
+  ages: AgeGroup[];
+  withId?: string; // do it with this person (otherwise anyone in the household)
+}
+
+export interface NudgeLogEntry { date: string; id: string; note?: string }
 
 export interface DrawnCard {
   cardId: string;
@@ -57,4 +75,7 @@ export interface GameState {
   members: Member[];
   journal: JournalEntry[];
   plus: boolean;
+  customCards: CustomCard[];
+  favourites: string[]; // card ids starred as "our list"
+  hidden: string[]; // card ids marked "not for us"
 }

@@ -107,6 +107,11 @@ export function MemberProfile({ member, index, total, onSave, onBack }: {
         )}
       </div>
 
+      <label className="check toggle">
+        <input type="checkbox" checked={m.nudges} onChange={(e) => set({ nudges: e.target.checked })} />
+        <span>💭 Self-care prompts for {m.name}<small className="muted"> – a private, {m.age === 'adult' ? 'reflective' : m.age === 'teen' ? 'teen-friendly' : 'child-friendly'} prompt a few times a week</small></span>
+      </label>
+
       {problems.length > 0 && (
         <div className="problem" role="alert">{problems.map((p) => <p key={p}>⚠️ {p}</p>)}</div>
       )}

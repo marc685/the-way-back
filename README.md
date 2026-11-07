@@ -15,21 +15,30 @@ and gets a practical card to do **with someone in the household**, in one of fiv
 person named on it. That person confirms it, picks how it felt and can write a message back.
 Only then does the player earn the wedge. "Not yet" gives the card back with no penalty.
 
+**Ideas catalogue.** 400 built-in ideas (80 per wedge) to browse, search and filter by wedge, age, cost,
+place and time. Star favourites (drawn more often), hide ones that aren't for you, and add your own
+activities – they go into the dice draw like any other card.
+
+**Self-care prompts.** Each person gets a private, age-appropriate prompt three times a week on their turn
+(`src/data/nudges.json`, 25 each for children, teens and adults). They never earn wedges and never appear in
+the journal. Can be switched off per person. The schedule (`src/lib/nudges.ts`) is deterministic so a future
+push-notification server can send the same prompts.
+
 Collect all five wedges → choose which of your rewards to claim (children's rewards are approved by a parent).
 
 ## Run
 ```bash
 npm install
 npm run dev      # open the printed Network URL on your phone (same Wi‑Fi)
-npm test         # card-engine unit tests
+npm test         # unit tests (checks every card)
 npm run build
 ```
 
 ## Edit the cards (no coding needed)
-Cards live in `src/data/decks/*.json` (20 per wedge). Each card has a `child` and `adult` wording and
+Cards live in `src/data/decks/*.json` (80 per wedge; the first 15 are free). Each card has a `child` and `adult` wording and
 **must name a household member with `{member}`** – that person confirms the card. Other placeholders:
 `{activity}` one of the player's activities · `{theirActivity}` one of the other member's activities.
-`"tier": "plus"` cards only show with Family Plus. `"type"` is `task` or `letter` (the player writes the
+`ages`, `cost`, `place` and `time` tags drive the catalogue filters and who can draw a card. `"tier": "plus"` cards only show with Family Plus. `"type"` is `task` or `letter` (the player writes the
 note in the app and the other person reads it when confirming). `npm test` checks every card.
 All cards are drafts for clinical review.
 

@@ -8,6 +8,7 @@ const OLD_KEYS = ['the-way-back-state-v1', 'kin-circle-state-v1'];
 
 export const emptyState = (): GameState => ({
   version: 1, safetyAccepted: false, familyName: '', members: [], journal: [], plus: false,
+  customCards: [], favourites: [], hidden: [],
 });
 
 export function loadState(): GameState {

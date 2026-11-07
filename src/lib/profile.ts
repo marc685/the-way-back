@@ -29,5 +29,5 @@ export function upgradeMember(raw: any): Member {
       currentCard = { ...currentCard, type: currentCard.type === 'letter' ? 'letter' : 'task', status: currentCard.status ?? 'todo' };
     }
   }
-  return { activities: [], wedges: [], rounds: 0, rewardApproved: false, ...rest, rewards, currentCard, lastRollDate };
+  return { activities: [], wedges: [], rounds: 0, rewardApproved: false, nudges: true, nudgeLog: [], ...rest, rewards, currentCard, lastRollDate };
 }

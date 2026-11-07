@@ -16,7 +16,7 @@ export function FamilySetup({ state, onDone }: {
     if (!name.trim()) return;
     setMembers([...members, {
       id: uid(), name: name.trim(), avatar: AVATARS[members.length % AVATARS.length], age,
-      activities: [], rewards: [], rewardApproved: false, wedges: [], rounds: 0,
+      activities: [], rewards: [], rewardApproved: false, wedges: [], rounds: 0, nudges: true, nudgeLog: [],
     }]);
     setName('');
   };

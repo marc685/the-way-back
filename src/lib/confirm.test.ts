@@ -3,10 +3,10 @@ import { confirmCard, handOver, sendBack, waitingFor } from './confirm';
 import type { GameState, Member } from './types';
 
 const mk = (name: string, p: Partial<Member> = {}): Member => ({
-  id: name, name, avatar: '🙂', age: 'adult', activities: [], rewards: ['x'], rewardApproved: true, wedges: [], rounds: 0, ...p,
+  id: name, name, avatar: '🙂', age: 'adult', activities: [], rewards: ['x'], rewardApproved: true, wedges: [], rounds: 0, nudges: true, nudgeLog: [], ...p,
 });
 const start = (): GameState => ({
-  version: 1, safetyAccepted: true, familyName: 'F', plus: false, journal: [],
+  version: 1, safetyAccepted: true, familyName: 'F', plus: false, journal: [], customCards: [], favourites: [], hidden: [],
   members: [
     mk('Liam', { age: 'child', currentCard: { cardId: 'way-1', wedge: 'wayback', type: 'task', text: 'Make Mom tea', withMemberId: 'Mom', status: 'todo' } }),
     mk('Mom'),

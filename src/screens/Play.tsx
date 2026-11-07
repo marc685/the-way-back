@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import type { DrawnCard, GameState, Member, WedgeId } from '../lib/types';
 import { WEDGES, wedgeById } from '../lib/wedges';
-import { DECKS } from '../lib/decks';
+import { deckFor } from '../lib/catalogue';
+import { pendingNudge } from '../lib/nudges';
+import { NudgeCard } from '../components/NudgeCard';
 import { drawCard } from '../lib/cardEngine';
 import { Dice } from '../components/Dice';
 import { WedgePie } from '../components/WedgePie';
@@ -22,6 +24,8 @@ export function Play({ state, member, onUpdate, onExit, onHandOver }: {
   const [card, setCard] = useState<DrawnCard | undefined>(startCard);
   const [letter, setLetter] = useState(startCard?.letter ?? '');
   const [skips, setSkips] = useState(0);
+  const [nudgeLater, setNudgeLater] = useState(false);
+  const waiting = nudgeLater ? undefined : pendingNudge(member, today());
 
   const partner = state.members.find((m) => m.id === card?.withMemberId);
   const alreadyPlayed = member.lastRollDate === today() && !member.currentCard;
@@ -29,8 +33,9 @@ export function Play({ state, member, onUpdate, onExit, onHandOver }: {
   const recent = state.journal.filter((j) => j.memberId === member.id).slice(-15).map((j) => j.cardId);
 
   const draw = (wedge: WedgeId, avoidId?: string) =>
-    drawCard(DECKS[wedge], wedge, member, state.members, {
+    drawCard(deckFor(state, wedge), wedge, member, state.members, {
       plus: state.plus, avoid: avoidId ? [...recent, avoidId] : recent,
+      hidden: state.hidden, favourites: state.favourites,
     });
 
   const roll = () => {
@@ -62,6 +67,10 @@ export function Play({ state, member, onUpdate, onExit, onHandOver }: {
       <div className="screen center">
         <button className="link back" onClick={onExit}>← Home</button>
         <h1>{member.avatar} {member.name}'s turn</h1>
+        {waiting && phase === 'roll' && (
+          <NudgeCard name={member.name} nudge={waiting.nudge} onLater={() => setNudgeLater(true)}
+            onRead={(note) => onUpdate({ ...member, nudgeLog: [...member.nudgeLog, { date: waiting.date, id: waiting.nudge.id, note }] })} />
+        )}
         <WedgePie earned={member.wedges} size={120} />
         {alreadyPlayed ? (
           <>

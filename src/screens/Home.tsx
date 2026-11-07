@@ -3,9 +3,10 @@ import { WedgePie } from '../components/WedgePie';
 import { WEDGES } from '../lib/wedges';
 import { today } from '../lib/store';
 import { waitingFor } from '../lib/confirm';
+import { pendingNudge } from '../lib/nudges';
 
-export function Home({ state, onPlay, onConfirm, onPaywall, onJournal, onEdit }: {
-  state: GameState; onPlay: (m: Member) => void; onConfirm: (playerId: string) => void; onPaywall: () => void; onJournal: () => void; onEdit: () => void;
+export function Home({ state, onPlay, onConfirm, onIdeas, onPaywall, onJournal, onEdit }: {
+  state: GameState; onPlay: (m: Member) => void; onConfirm: (playerId: string) => void; onIdeas: () => void; onPaywall: () => void; onJournal: () => void; onEdit: () => void;
 }) {
   return (
     <div className="screen">
@@ -40,7 +41,7 @@ export function Home({ state, onPlay, onConfirm, onPaywall, onJournal, onEdit }:
               <button className="player" onClick={() => onPlay(m)}>
                 <WedgePie earned={m.wedges} size={58} />
                 <span className="grow">
-                  <b>{m.avatar} {m.name}</b>
+                  <b>{m.avatar} {m.name}{pendingNudge(m, today()) ? <span className="nudge-dot" title="A self-care prompt is waiting"> 💭</span> : null}</b>
                   <small className="muted">
                     {m.wedges.length}/5 wedges · 🏆 {m.rewards[0]}{m.rewards.length > 1 ? ` +${m.rewards.length - 1} more` : ''}{m.rounds ? ` · ${m.rounds} circle${m.rounds > 1 ? 's' : ''} done` : ''}
                   </small>
@@ -54,6 +55,7 @@ export function Home({ state, onPlay, onConfirm, onPaywall, onJournal, onEdit }:
         })}
       </ul>
 
+      <button className="btn ideas" onClick={onIdeas}>💡 Ideas – browse & add your own activities</button>
       <div className="row gap">
         <button className="btn ghost grow" onClick={onJournal}>📖 Family journal</button>
         {!state.plus && <button className="btn plus grow" onClick={onPaywall}>✨ Family Plus</button>}

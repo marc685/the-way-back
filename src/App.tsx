@@ -12,6 +12,7 @@ import { Celebration } from './screens/Celebration';
 import { Journal } from './screens/Journal';
 import { Paywall } from './screens/Paywall';
 import { Confirm } from './screens/Confirm';
+import { Catalogue } from './screens/Catalogue';
 import { confirmCard, handOver, sendBack } from './lib/confirm';
 
 type View =
@@ -22,6 +23,7 @@ type View =
   | { name: 'confirm'; playerId: string }
   | { name: 'celebrate'; memberId: string }
   | { name: 'journal' }
+  | { name: 'ideas' }
   | { name: 'paywall' };
 
 export default function App() {
@@ -73,6 +75,8 @@ export default function App() {
       updateMember({ ...m, wedges: [], rounds: m.rounds + 1 });
       setView({ name: 'home' });
     }} />;
+  } else if (view.name === 'ideas') {
+    screen = <Catalogue state={state} setState={setState} onBack={() => setView({ name: 'home' })} />;
   } else if (view.name === 'journal') {
     screen = <Journal state={state} onBack={() => setView({ name: 'home' })} />;
   } else if (view.name === 'paywall') {
@@ -82,6 +86,7 @@ export default function App() {
     screen = <Home state={state}
       onPlay={(m) => setView(m.wedges.length === 5 ? { name: 'celebrate', memberId: m.id } : { name: 'play', memberId: m.id })}
       onConfirm={(playerId) => setView({ name: 'confirm', playerId })}
+      onIdeas={() => setView({ name: 'ideas' })}
       onPaywall={() => setView({ name: 'paywall' })}
       onJournal={() => setView({ name: 'journal' })}
       onEdit={() => setView({ name: 'setup' })} />;

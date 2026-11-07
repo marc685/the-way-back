@@ -1,0 +1,377 @@
+[
+ {
+  "id": "child-1",
+  "age": "child",
+  "text": "When did you last do something just because it made you happy? What was it?"
+ },
+ {
+  "id": "child-2",
+  "age": "child",
+  "text": "What's one thing that always makes you smile? Can you do it today?"
+ },
+ {
+  "id": "child-3",
+  "age": "child",
+  "text": "If your feelings were weather today, would they be sunny, cloudy or stormy?"
+ },
+ {
+  "id": "child-4",
+  "age": "child",
+  "text": "What does your body feel like when you're angry? Hot? Tight? Wobbly?"
+ },
+ {
+  "id": "child-5",
+  "age": "child",
+  "text": "When you feel cross, what helps you calm down? A hug, a drink of water, some quiet?"
+ },
+ {
+  "id": "child-6",
+  "age": "child",
+  "text": "Did you feel left out today? It's OK to tell someone you trust."
+ },
+ {
+  "id": "child-7",
+  "age": "child",
+  "text": "Name three things you're good at. Yes, three!"
+ },
+ {
+  "id": "child-8",
+  "age": "child",
+  "text": "What's something brave you did this week?"
+ },
+ {
+  "id": "child-9",
+  "age": "child",
+  "text": "Is there something worrying you? Worries feel smaller when you share them."
+ },
+ {
+  "id": "child-10",
+  "age": "child",
+  "text": "Can you be cross with someone and still love them? (Yes, you can!)"
+ },
+ {
+  "id": "child-11",
+  "age": "child",
+  "text": "How can you tell when someone's feelings are hurt? What do their faces look like?"
+ },
+ {
+  "id": "child-12",
+  "age": "child",
+  "text": "Take 5 big balloon breaths. In through your nose… and out slowly."
+ },
+ {
+  "id": "child-13",
+  "age": "child",
+  "text": "What's your favourite place in the whole world? Imagine you're there for a moment."
+ },
+ {
+  "id": "child-14",
+  "age": "child",
+  "text": "What would you like more of this week: hugs, play time or quiet time?"
+ },
+ {
+  "id": "child-15",
+  "age": "child",
+  "text": "Who made you feel happy today? What did they do?"
+ },
+ {
+  "id": "child-16",
+  "age": "child",
+  "text": "Did you make a mistake today? Everybody does. What did you learn?"
+ },
+ {
+  "id": "child-17",
+  "age": "child",
+  "text": "What's a song that makes you want to dance?"
+ },
+ {
+  "id": "child-18",
+  "age": "child",
+  "text": "If you could give yourself a superhero name, what would it be?"
+ },
+ {
+  "id": "child-19",
+  "age": "child",
+  "text": "Is there something you want to say but it feels too hard? You could write it or draw it."
+ },
+ {
+  "id": "child-20",
+  "age": "child",
+  "text": "What do you need right now: a snack, a rest, a cuddle or to run around?"
+ },
+ {
+  "id": "child-21",
+  "age": "child",
+  "text": "Say something kind to yourself, like you would to your best friend."
+ },
+ {
+  "id": "child-22",
+  "age": "child",
+  "text": "What made you laugh this week?"
+ },
+ {
+  "id": "child-23",
+  "age": "child",
+  "text": "When you feel sad, who can you go to?"
+ },
+ {
+  "id": "child-24",
+  "age": "child",
+  "text": "What's something new you'd like to try?"
+ },
+ {
+  "id": "child-25",
+  "age": "child",
+  "text": "You matter. Your feelings matter. 💛"
+ },
+ {
+  "id": "teen-1",
+  "age": "teen",
+  "text": "When was the last time you did something just because you enjoyed it – not for marks, likes or anyone else?"
+ },
+ {
+  "id": "teen-2",
+  "age": "teen",
+  "text": "What's taking up the most space in your head this week?"
+ },
+ {
+  "id": "teen-3",
+  "age": "teen",
+  "text": "What do you do when you're angry – and does it help you?"
+ },
+ {
+  "id": "teen-4",
+  "age": "teen",
+  "text": "When you feel rejected, what's the story you tell yourself? Is it the whole story?"
+ },
+ {
+  "id": "teen-5",
+  "age": "teen",
+  "text": "Is there someone you might have hurt without meaning to? What would help?"
+ },
+ {
+  "id": "teen-6",
+  "age": "teen",
+  "text": "Can you disagree with someone and still love them? Think of someone you do this with."
+ },
+ {
+  "id": "teen-7",
+  "age": "teen",
+  "text": "What helps you switch off: music, sport, sleep, time alone, time with people?"
+ },
+ {
+  "id": "teen-8",
+  "age": "teen",
+  "text": "Who in your life makes you feel like you can just be yourself?"
+ },
+ {
+  "id": "teen-9",
+  "age": "teen",
+  "text": "What's one thing you'd like the adults at home to understand about you?"
+ },
+ {
+  "id": "teen-10",
+  "age": "teen",
+  "text": "How much sleep did you get this week? Your mood notices."
+ },
+ {
+  "id": "teen-11",
+  "age": "teen",
+  "text": "What's something you used to love that you've stopped doing? Could you pick it up again?"
+ },
+ {
+  "id": "teen-12",
+  "age": "teen",
+  "text": "Scrolled a lot today? Try 10 minutes without your phone and notice how you feel."
+ },
+ {
+  "id": "teen-13",
+  "age": "teen",
+  "text": "What's one small thing you're proud of this week?"
+ },
+ {
+  "id": "teen-14",
+  "age": "teen",
+  "text": "If talking feels too hard, could writing it down help?"
+ },
+ {
+  "id": "teen-15",
+  "age": "teen",
+  "text": "What's a boundary you need right now – and who do you need to tell?"
+ },
+ {
+  "id": "teen-16",
+  "age": "teen",
+  "text": "Is there a conversation you're avoiding? What's the smallest first step?"
+ },
+ {
+  "id": "teen-17",
+  "age": "teen",
+  "text": "What does 'looking after myself' look like for you this week?"
+ },
+ {
+  "id": "teen-18",
+  "age": "teen",
+  "text": "You don't have to have it all figured out. What's one thing you do know?"
+ },
+ {
+  "id": "teen-19",
+  "age": "teen",
+  "text": "Who could you ask for help with something you're struggling with?"
+ },
+ {
+  "id": "teen-20",
+  "age": "teen",
+  "text": "What would you tell a friend who felt the way you feel today?"
+ },
+ {
+  "id": "teen-21",
+  "age": "teen",
+  "text": "Notice one thing you're grateful for, even on a rough day."
+ },
+ {
+  "id": "teen-22",
+  "age": "teen",
+  "text": "When did you last feel really calm? Where were you?"
+ },
+ {
+  "id": "teen-23",
+  "age": "teen",
+  "text": "What song matches your mood right now?"
+ },
+ {
+  "id": "teen-24",
+  "age": "teen",
+  "text": "Being angry is OK. What you do with it is what matters."
+ },
+ {
+  "id": "teen-25",
+  "age": "teen",
+  "text": "If you're not OK, that's allowed. Who could you tell? 💛"
+ },
+ {
+  "id": "adult-1",
+  "age": "adult",
+  "text": "When was the last time you did something simply because it made you happy?"
+ },
+ {
+  "id": "adult-2",
+  "age": "adult",
+  "text": "What do you need this week that you haven't asked for?"
+ },
+ {
+  "id": "adult-3",
+  "age": "adult",
+  "text": "What happens in you when you feel rejected – and what do you usually do next?"
+ },
+ {
+  "id": "adult-4",
+  "age": "adult",
+  "text": "What do you do when you're angry? What would you like to do instead?"
+ },
+ {
+  "id": "adult-5",
+  "age": "adult",
+  "text": "How do you know when you're hurting someone? What signs might you miss?"
+ },
+ {
+  "id": "adult-6",
+  "age": "adult",
+  "text": "Can you disagree with someone at home and still let them know you love them?"
+ },
+ {
+  "id": "adult-7",
+  "age": "adult",
+  "text": "Is there a rupture at home that still needs repair? Repair isn't pretending it didn't happen."
+ },
+ {
+  "id": "adult-8",
+  "age": "adult",
+  "text": "When did you last rest without feeling guilty about it?"
+ },
+ {
+  "id": "adult-9",
+  "age": "adult",
+  "text": "What's one thing you used to love doing before life got busy?"
+ },
+ {
+  "id": "adult-10",
+  "age": "adult",
+  "text": "What's one small way to look after yourself today – water, a walk, an early night?"
+ },
+ {
+  "id": "adult-11",
+  "age": "adult",
+  "text": "Who looks after you? When did you last let them?"
+ },
+ {
+  "id": "adult-12",
+  "age": "adult",
+  "text": "What's a pattern from your own childhood you'd like to keep – and one you'd like to change?"
+ },
+ {
+  "id": "adult-13",
+  "age": "adult",
+  "text": "Notice how you talk to yourself today. Would you speak to a friend like that?"
+ },
+ {
+  "id": "adult-14",
+  "age": "adult",
+  "text": "What are you carrying this week that you could put down, even for an hour?"
+ },
+ {
+  "id": "adult-15",
+  "age": "adult",
+  "text": "When talking feels too hard, writing can help. Is there a letter you need to write?"
+ },
+ {
+  "id": "adult-16",
+  "age": "adult",
+  "text": "What's one thing that went well at home this week? Notice it."
+ },
+ {
+  "id": "adult-17",
+  "age": "adult",
+  "text": "What does your body tell you when you're stressed? Where do you feel it?"
+ },
+ {
+  "id": "adult-18",
+  "age": "adult",
+  "text": "Have you had a moment of fun this week – just for you?"
+ },
+ {
+  "id": "adult-19",
+  "age": "adult",
+  "text": "What would 'good enough' look like today, instead of perfect?"
+ },
+ {
+  "id": "adult-20",
+  "age": "adult",
+  "text": "Is there someone you need to forgive – or ask forgiveness from?"
+ },
+ {
+  "id": "adult-21",
+  "age": "adult",
+  "text": "What's one boundary that would protect your energy this week?"
+ },
+ {
+  "id": "adult-22",
+  "age": "adult",
+  "text": "When did you last laugh properly? What was it?"
+ },
+ {
+  "id": "adult-23",
+  "age": "adult",
+  "text": "What helps you come back to yourself after a hard day?"
+ },
+ {
+  "id": "adult-24",
+  "age": "adult",
+  "text": "Who could you reach out to this week, just to talk?"
+ },
+ {
+  "id": "adult-25",
+  "age": "adult",
+  "text": "You can't pour from an empty cup. What would refill yours today? 💛"
+ }
+]
