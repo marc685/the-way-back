@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import type { GameState } from './types';
 
-const KEY = 'kin-circle-state-v1';
+const KEY = 'the-way-back-state-v1';
+const OLD_KEY = 'kin-circle-state-v1'; // pre-rename saves, read once so test families keep their progress
 
 export const emptyState = (): GameState => ({
   version: 1, safetyAccepted: false, familyName: '', members: [], journal: [], plus: false,
@@ -9,7 +10,7 @@ export const emptyState = (): GameState => ({
 
 export function loadState(): GameState {
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = localStorage.getItem(KEY) ?? localStorage.getItem(OLD_KEY);
     if (raw) {
       const s = JSON.parse(raw);
       if (s?.version === 1) return { ...emptyState(), ...s };

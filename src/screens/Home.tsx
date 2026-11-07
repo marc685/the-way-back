@@ -10,7 +10,7 @@ export function Home({ state, onPlay, onPaywall, onJournal, onEdit }: {
     <div className="screen">
       <header className="home-head">
         <div>
-          <p className="muted small">Kin Circle</p>
+          <p className="muted small">The Way Back</p>
           <h1>{state.familyName}</h1>
         </div>
         <button className="link" onClick={onEdit}>Edit family</button>

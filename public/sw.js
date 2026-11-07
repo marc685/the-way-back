@@ -1,5 +1,5 @@
 // Minimal offline cache: network first, fall back to cache.
-const CACHE = 'kin-circle-v1';
+const CACHE = 'the-way-back-v1';
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch', (e) => {
