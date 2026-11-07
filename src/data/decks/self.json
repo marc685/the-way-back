@@ -1,0 +1,12 @@
+[
+  { "id": "self-1", "tier": "free", "type": "task", "child": "When did you last do something just because it made you happy? Do it today!", "adult": "When was the last time you did something simply because it made you happy? Make time for it today." },
+  { "id": "self-2", "tier": "free", "type": "task", "child": "Spend 20 minutes on {activity} – just for you.", "adult": "Give yourself 30 unhurried minutes of {activity}, just for you." },
+  { "id": "self-3", "tier": "free", "type": "task", "child": "Draw a picture of how you feel today. Is it sunny, rainy or stormy inside?", "adult": "Write down three words for how you are really feeling today – not how you think you should feel." },
+  { "id": "self-4", "tier": "free", "type": "task", "child": "Find a quiet spot and take 5 slow balloon-breaths. What do you notice?", "adult": "Take a 10-minute walk alone without your phone. Notice what your mind keeps returning to." },
+  { "id": "self-5", "tier": "free", "type": "task", "child": "Write or draw 3 things you are good at.", "adult": "Write down three things you have handled well lately, however small." },
+  { "id": "self-6", "tier": "free", "type": "task", "child": "What is something you used to love doing when you were little? Try it again.", "adult": "Think of something you loved before life got busy. Do a small version of it this week." },
+  { "id": "self-7", "tier": "free", "type": "task", "child": "Make a 'happy box' – put in 3 things that make you smile.", "adult": "Make a list of 5 small things that refill you. Stick it somewhere you'll see it." },
+  { "id": "self-8", "tier": "free", "type": "task", "child": "Tell someone one thing you need today (a hug, quiet time, help with something).", "adult": "Notice one need you have been ignoring. Name it to someone you trust." },
+  { "id": "self-p1", "tier": "plus", "type": "task", "child": "Make a 'me map': draw yourself in the middle and all the things you love around you.", "adult": "Write a short letter to yourself from five years ago. What would they want you to remember?" },
+  { "id": "self-p2", "tier": "plus", "type": "task", "child": "Choose a song that feels like YOU. Play it and dance or listen with eyes closed.", "adult": "Go somewhere new on your own for an hour – a café, a trail, a gallery. Notice how it feels." }
+]

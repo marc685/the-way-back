@@ -1,0 +1,15 @@
+[
+  { "id": "tog-1", "tier": "free", "type": "task", "child": "Ask {member} to join you for {activity}.", "adult": "Invite {member} to join you for {activity} this week." },
+  { "id": "tog-2", "tier": "free", "type": "task", "child": "Ask {member} to teach you about {theirActivity}, or do it together.", "adult": "Join {member} in {theirActivity} – let them lead and teach you." },
+  { "id": "tog-3", "tier": "free", "type": "task", "child": "Have 15 minutes of special time with {member} – you choose what to do, no phones!", "adult": "Give {member} 15 minutes of special time: they choose, you follow, no phones." },
+  { "id": "tog-4", "tier": "free", "type": "task", "child": "Go for a walk with {member} and spot 5 interesting things.", "adult": "Go for a walk with {member}. Let the conversation wander wherever it goes." },
+  { "id": "tog-5", "tier": "free", "type": "task", "child": "Cook or bake something with {member}.", "adult": "Cook a meal together with {member} – one of you picks the recipe, the other is the helper." },
+  { "id": "tog-6", "tier": "free", "type": "task", "child": "Look through old photos with {member}. Find the funniest one!", "adult": "Look through old photographs with {member} and share the stories behind them." },
+  { "id": "tog-7", "tier": "free", "type": "task", "child": "Plan a family breakfast – you choose the menu!", "adult": "Plan a slow family breakfast this weekend. Everyone gets to choose one thing on the table." },
+  { "id": "tog-8", "tier": "free", "type": "task", "child": "Add 2 songs to a family playlist and ask everyone else to add theirs.", "adult": "Start a family playlist – everyone adds two songs and explains one of them." },
+  { "id": "tog-9", "tier": "free", "type": "task", "child": "Watch a movie with the family – all phones in a basket!", "adult": "Family movie night with all phones in a basket. Talk about the movie afterwards." },
+  { "id": "tog-10", "tier": "free", "type": "task", "child": "Call or visit {extended} and ask them about when they were your age.", "adult": "Phone or visit {extended}. Ask them a question you've never asked before." },
+  { "id": "tog-11", "tier": "free", "type": "task", "child": "Help plan a braai and invite {friend}!", "adult": "Plan a braai or get-together and invite {friend}." },
+  { "id": "tog-p1", "tier": "plus", "type": "task", "child": "Plan a date with {member} – you choose where to go!", "adult": "Plan a date night (or date afternoon) with {member}. Put it in the calendar today." },
+  { "id": "tog-p2", "tier": "plus", "type": "task", "child": "Plan the family week together on a big piece of paper.", "adult": "Sit down together and plan the week – include one thing each person is looking forward to." }
+]

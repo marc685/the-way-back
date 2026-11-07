@@ -1,0 +1,9 @@
+{
+  "name": "Kin Circle – family connection game",
+  "short_name": "Kin Circle",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff8ef",
+  "theme_color": "#f4a259",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
