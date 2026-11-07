@@ -1,4 +1,4 @@
-export function Paywall({ onUnlock, onBack }: { onUnlock: () => void; onBack: () => void }) {
+export function Paywall({ canBuy, onUnlock, onBack }: { canBuy: boolean; onUnlock: () => void; onBack: () => void }) {
   return (
     <div className="screen">
       <button className="link back" onClick={onBack}>← Not now</button>
@@ -15,7 +15,9 @@ export function Paywall({ onUnlock, onBack }: { onUnlock: () => void; onBack: ()
         <div className="plan"><b>Monthly</b><span>R79</span><small>per family / month</small></div>
         <div className="plan best"><b>Yearly</b><span>R699</span><small>save 26% · 7-day free trial</small></div>
       </div>
-      <button className="btn big plus" onClick={onUnlock}>Start free trial (demo)</button>
+      {canBuy
+        ? <button className="btn big plus" onClick={onUnlock}>Start free trial (demo)</button>
+        : <p className="card soft">Ask a parent to start Family Plus – it unlocks everything for the whole family.</p>}
       <p className="muted small center-text">Prototype only – no payment is taken. Prices are placeholders.</p>
     </div>
   );

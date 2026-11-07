@@ -8,6 +8,7 @@ export interface Member {
   name: string;
   avatar: string;
   age: AgeGroup;
+  isParent?: boolean; // parents approve children's rewards, give bonus rolls and manage the family
   activities: string[];
   rewards: string[]; // one or more rewards; they pick one to claim when the circle is complete
   rewardApproved: boolean; // parent approval – only needed for children and teens
@@ -64,6 +65,7 @@ export interface JournalEntry {
   feeling?: Feeling;
   reply?: string; // message back from the person who confirmed
   letter?: string;
+  privateLetter?: boolean; // a letter was written but this phone may not read it
   // Older entries (before confirmation existed) may carry these:
   note?: string;
 }

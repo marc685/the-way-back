@@ -1,8 +1,8 @@
-import type { GameState } from '../lib/types';
+import type { FamilyView } from '../lib/api';
 import { wedgeById } from '../lib/wedges';
 import { FEELINGS } from '../lib/confirm';
 
-export function Journal({ state, onBack }: { state: GameState; onBack: () => void }) {
+export function Journal({ view: state, onBack }: { view: FamilyView; onBack: () => void }) {
   const byId = Object.fromEntries(state.members.map((m) => [m.id, m]));
   const entries = [...state.journal].reverse();
   return (
@@ -17,11 +17,15 @@ export function Journal({ state, onBack }: { state: GameState; onBack: () => voi
           const m = byId[e.memberId];
           const by = e.confirmedBy ? byId[e.confirmedBy] : undefined;
           const f = FEELINGS.find((x) => x.id === e.feeling);
+          if (e.cardId === 'reward') {
+            return <li key={e.id} style={{ borderColor: '#f4a259' }}><small className="muted">{e.date} · {m?.avatar} {m?.name}</small><p><b>{e.cardText}</b></p></li>;
+          }
           return (
             <li key={e.id} style={{ borderColor: w.color }}>
               <small className="muted">{e.date} · {m?.avatar} {m?.name} · {w.icon} {w.name}</small>
               <p>{e.cardText}</p>
               {e.letter && <p className="quote">✉️ {e.letter}</p>}
+              {e.privateLetter && <p className="muted small">✉️ A private letter{by ? ` to ${by.name}` : ''}</p>}
               {by && <p className="reply">{by.avatar} <b>{by.name}</b> {f ? `${f.icon} ${f.label.toLowerCase()}` : 'confirmed'}{e.reply ? `: “${e.reply}”` : ''}</p>}
               {!by && e.note && <p className="quote">“{e.note}”</p>}
             </li>

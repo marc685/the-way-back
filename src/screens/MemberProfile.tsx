@@ -27,8 +27,8 @@ const REWARDS = [
 ];
 const PRESET = new Set(REWARDS.map((r) => r.label));
 
-export function MemberProfile({ member, index, total, onSave, onBack }: {
-  member: Member; index: number; total: number; onSave: (m: Member) => void; onBack: () => void;
+export function MemberProfile({ member, firstTime, onSave, onBack }: {
+  member: Member; firstTime: boolean; onSave: (m: Member) => Promise<void>; onBack?: () => void;
 }) {
   const [m, setM] = useState(member);
   const [own, setOwn] = useState('');
@@ -56,16 +56,19 @@ export function MemberProfile({ member, index, total, onSave, onBack }: {
       rewardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
-    onSave(final);
+    setSaving(true);
+    onSave(final).finally(() => setSaving(false));
   };
+  const [saving, setSaving] = useState(false);
 
   const customRewards = m.rewards.filter((r) => !PRESET.has(r));
   const approval = needsApproval(m);
 
   return (
     <div className="screen" key={member.id}>
-      <p className="step">Profile {index + 1} of {total}{total > 1 ? ` – pass the phone to ${m.name}` : ''}</p>
-      <h1><span className="big-avatar">{m.avatar}</span> {m.name}'s profile</h1>
+      {onBack && <button className="link back" onClick={onBack}>← Back</button>}
+      {firstTime && <p className="step">Welcome, {m.name}! Tell your family a little about you.</p>}
+      <h1><span className="big-avatar">{m.avatar}</span> My profile</h1>
 
       <ChipInput label="🎣 Things I like doing with people at home" values={m.activities}
         onChange={(activities) => set({ activities })} placeholder="e.g. fishing, baking"
@@ -100,10 +103,9 @@ export function MemberProfile({ member, index, total, onSave, onBack }: {
         </form>
         <p className="muted small">{m.rewards.length ? `${m.rewards.length} chosen` : 'None chosen yet'}</p>
         {approval && m.rewards.length > 0 && (
-          <label className="check">
-            <input type="checkbox" checked={m.rewardApproved} onChange={(e) => set({ rewardApproved: e.target.checked })} />
-            A parent agrees to these rewards
-          </label>
+          <p className={`approval ${m.rewardApproved ? 'ok' : ''}`}>
+            {m.rewardApproved ? '✅ A parent approved these rewards.' : '⏳ When you save, a parent gets a message to approve your rewards on their phone.'}
+          </p>
         )}
       </div>
 
@@ -116,12 +118,9 @@ export function MemberProfile({ member, index, total, onSave, onBack }: {
         <div className="problem" role="alert">{problems.map((p) => <p key={p}>⚠️ {p}</p>)}</div>
       )}
 
-      <div className="row gap">
-        <button className="btn ghost" onClick={onBack}>← Back</button>
-        <button className="btn grow" onClick={save}>
-          {index + 1 < total ? 'Save & next person →' : 'Save & start playing 🎉'}
-        </button>
-      </div>
+      <button className="btn big" onClick={save} disabled={saving}>
+        {saving ? 'Saving…' : firstTime ? 'Save & start playing 🎉' : 'Save my profile'}
+      </button>
     </div>
   );
 }

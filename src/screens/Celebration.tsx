@@ -2,7 +2,8 @@ import { useState } from 'react';
 import type { Member } from '../lib/types';
 import { WedgePie } from '../components/WedgePie';
 
-export function Celebration({ member, onNewRound }: { member: Member; onNewRound: () => void }) {
+export function Celebration({ member, onClaim }: { member: Member; onClaim: (reward: string) => Promise<void> }) {
+  const [busy, setBusy] = useState(false);
   const [claimed, setClaimed] = useState<string | undefined>(member.rewards.length === 1 ? member.rewards[0] : undefined);
   return (
     <div className="screen center celebrate">
@@ -24,10 +25,11 @@ export function Celebration({ member, onNewRound }: { member: Member; onNewRound
         <div className="card reward-card">
           <small className="muted">Your reward</small>
           <h2>🏆 {claimed}</h2>
-          <p className="small">Show this screen to {member.age === 'adult' ? 'your family' : 'a parent'} to claim it.</p>
+          <p className="small">{member.age === 'adult' ? 'Your family will see this in the journal.' : 'A parent gets a message that you’re claiming it.'}</p>
         </div>
       )}
-      <button className="btn big" onClick={onNewRound} disabled={!claimed && member.rewards.length > 0}>Start a new circle</button>
+      <button className="btn big" disabled={(!claimed && member.rewards.length > 0) || busy}
+        onClick={async () => { setBusy(true); try { await onClaim(claimed ?? ''); } finally { setBusy(false); } }}>Claim it & start a new circle</button>
     </div>
   );
 }

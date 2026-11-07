@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import type { AgeGroup, Card, CustomCard, GameState, WedgeId } from '../lib/types';
+import type { AgeGroup, Card, CustomCard, WedgeId } from '../lib/types';
+import type { FamilyView } from '../lib/api';
 import { WEDGES, wedgeById } from '../lib/wedges';
 import { allIdeas, filterIdeas, ideaText, type IdeaFilter } from '../lib/catalogue';
 import { uid } from '../lib/store';
@@ -10,8 +11,8 @@ const COSTS: { id: NonNullable<Card['cost']>; label: string }[] = [{ id: 'free',
 const PLACES: { id: NonNullable<Card['place']>; label: string }[] = [{ id: 'home', label: 'At home' }, { id: 'outside', label: 'Outside' }, { id: 'out', label: 'Out & about' }];
 const TIMES: { id: NonNullable<Card['time']>; label: string }[] = [{ id: 'quick', label: 'Quick (≤15 min)' }, { id: 'long', label: 'Longer' }];
 
-export function Catalogue({ state, setState, onBack }: {
-  state: GameState; setState: (f: (s: GameState) => GameState) => void; onBack: () => void;
+export function Catalogue({ view: state, act, onBack }: {
+  view: FamilyView; act: (a: any) => Promise<FamilyView | null>; onBack: () => void;
 }) {
   const [f, setF] = useState<IdeaFilter>({});
   const [shown, setShown] = useState(PAGE);
@@ -24,23 +25,20 @@ export function Catalogue({ state, setState, onBack }: {
   const activeExtra = [f.age, f.cost, f.place, f.time, f.only === 'hidden' ? 1 : undefined].filter(Boolean).length;
 
   const toggle = (key: 'favourites' | 'hidden', id: string) =>
-    setState((s) => ({ ...s, [key]: s[key].includes(id) ? s[key].filter((x) => x !== id) : [...s[key], id] }));
+    act({ type: key === 'favourites' ? 'toggleFavourite' : 'toggleHidden', id });
   const setFilter = (p: Partial<IdeaFilter>) => { setF((cur) => ({ ...cur, ...p })); setShown(PAGE); };
   const chip = <K extends keyof IdeaFilter>(key: K, value: IdeaFilter[K], label: string) => (
     <button key={String(value)} className={`chip ${f[key] === value ? 'on' : ''}`} aria-pressed={f[key] === value}
       onClick={() => setFilter({ [key]: f[key] === value ? undefined : value } as Partial<IdeaFilter>)}>{label}</button>
   );
 
-  const saveCustom = (c: CustomCard) => {
-    setState((s) => ({ ...s, customCards: s.customCards.some((x) => x.id === c.id)
-      ? s.customCards.map((x) => (x.id === c.id ? c : x)) : [...s.customCards, c] }));
-    setAdding(null);
+  const saveCustom = async (c: CustomCard) => {
+    if (await act({ type: 'saveCustom', card: c })) setAdding(null);
   };
 
   if (adding) return <CustomForm state={state} card={adding} onSave={saveCustom} onCancel={() => setAdding(null)}
-    onDelete={mine.some((x) => x.id === adding.id) ? () => {
-      setState((s) => ({ ...s, customCards: s.customCards.filter((x) => x.id !== adding.id) }));
-      setAdding(null);
+    onDelete={mine.some((x) => x.id === adding.id) ? async () => {
+      if (await act({ type: 'deleteCustom', id: adding.id })) setAdding(null);
     } : undefined} />;
 
   return (
@@ -119,7 +117,7 @@ export function Catalogue({ state, setState, onBack }: {
 }
 
 function CustomForm({ state, card, onSave, onCancel, onDelete }: {
-  state: GameState; card: CustomCard; onSave: (c: CustomCard) => void; onCancel: () => void; onDelete?: () => void;
+  state: FamilyView; card: CustomCard; onSave: (c: CustomCard) => void; onCancel: () => void; onDelete?: () => void;
 }) {
   const [c, setC] = useState(card);
   const toggleAge = (a: AgeGroup) => setC({ ...c, ages: c.ages.includes(a) ? c.ages.filter((x) => x !== a) : [...c.ages, a] });

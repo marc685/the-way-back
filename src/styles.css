@@ -171,3 +171,25 @@ path.pop { animation: pulse 1s ease 2; transform-origin: center; }
 .toggle small { display: block; font-weight: 400; }
 .chips.scroll { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; margin-right: -16px; }
 .chips.scroll .chip { flex: none; }
+.toast { position: fixed; left: 16px; right: 16px; bottom: 76px; max-width: 448px; margin: 0 auto; background: #2d2a32; color: #fff;
+  padding: 12px 14px; border-radius: 14px; box-shadow: var(--shadow); z-index: 20; font-weight: 700; }
+.offline { background: #fff3cd; color: #6b4f00; border-radius: 12px; padding: 8px 12px; margin-bottom: 12px; font-size: .9rem; }
+.my-turn { width: 100%; display: flex; align-items: center; gap: 14px; background: var(--surface); border: 3px solid var(--accent); border-radius: 22px;
+  padding: 14px; box-shadow: var(--shadow); font: inherit; color: var(--ink); text-align: left; cursor: pointer; }
+.my-turn b { font-size: 1.2rem; display: block; }
+.my-turn small { display: block; }
+div.player { cursor: default; }
+.notify-card { background: var(--surface); border: 2px dashed #4fa3a5; border-radius: 16px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.code-input { font-size: 1.6rem; letter-spacing: .2em; text-align: center; text-transform: uppercase; font-weight: 800; }
+.code { font-size: 1.6rem; font-weight: 800; letter-spacing: .15em; margin: 0; }
+.invite { display: flex; flex-direction: column; gap: 6px; padding-top: 8px; }
+.member-list.family li { flex-direction: column; align-items: stretch; }
+.member-opts { display: flex; gap: 12px; margin-top: 4px; }
+.mini-check { display: inline-flex; gap: 4px; align-items: center; font-size: .85rem; color: var(--muted); }
+.mini-check input { width: 18px; height: 18px; min-height: 0; accent-color: var(--accent); }
+.consent { background: var(--surface); border-radius: 14px; padding: 12px; align-items: flex-start; font-weight: 400; font-size: .9rem; }
+.approval { background: var(--empty); border-radius: 12px; padding: 10px 12px; margin: 0; font-size: .9rem; }
+.approval.ok { background: #e6f2dc; }
+.ok-text { color: var(--ok); font-weight: 700; }
+.reward-list { margin: 0; padding-left: 20px; }
+a.btn { text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
