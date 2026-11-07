@@ -2,7 +2,7 @@ export function SafetyNotice({ onAccept }: { onAccept: () => void }) {
   return (
     <div className="screen center">
       <div className="hero-icon"><img src="/icon.svg" alt="" width={96} height={96} /></div>
-      <h1>The Way Back</h1>
+      <h1>FamJam</h1>
       <p className="lead">A game about finding yourself, finding words, finding each other – and coming back together.</p>
       <div className="card soft">
         <h3>Before you start</h3>

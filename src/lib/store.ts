@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import type { GameState } from './types';
 
-const KEY = 'the-way-back-state-v1';
-const OLD_KEY = 'kin-circle-state-v1'; // pre-rename saves, read once so test families keep their progress
+const KEY = 'famjam-state-v1';
+// Saves from before the app was renamed, read so families keep their progress.
+const OLD_KEYS = ['the-way-back-state-v1', 'kin-circle-state-v1'];
 
 export const emptyState = (): GameState => ({
   version: 1, safetyAccepted: false, familyName: '', members: [], journal: [], plus: false,
@@ -10,7 +11,7 @@ export const emptyState = (): GameState => ({
 
 export function loadState(): GameState {
   try {
-    const raw = localStorage.getItem(KEY) ?? localStorage.getItem(OLD_KEY);
+    const raw = [KEY, ...OLD_KEYS].map((k) => localStorage.getItem(k)).find((v) => v != null);
     if (raw) {
       const s = JSON.parse(raw);
       if (s?.version === 1) return { ...emptyState(), ...s };

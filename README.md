@@ -1,4 +1,4 @@
-# The Way Back – family connection game prototype
+# FamJam – family connection game prototype
 
 A phone web app (PWA) where each family member builds a profile, rolls a die once a day,
 and gets a personalised task card in one of five wedges:

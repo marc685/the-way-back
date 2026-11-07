@@ -1,6 +1,6 @@
 {
-  "name": "The Way Back – family connection game",
-  "short_name": "The Way Back",
+  "name": "FamJam – family connection game",
+  "short_name": "FamJam",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff8ef",
