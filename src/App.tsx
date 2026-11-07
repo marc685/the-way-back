@@ -11,12 +11,15 @@ import { Play } from './screens/Play';
 import { Celebration } from './screens/Celebration';
 import { Journal } from './screens/Journal';
 import { Paywall } from './screens/Paywall';
+import { Confirm } from './screens/Confirm';
+import { confirmCard, handOver, sendBack } from './lib/confirm';
 
 type View =
   | { name: 'home' }
   | { name: 'setup' }
   | { name: 'profile'; index: number }
   | { name: 'play'; memberId: string }
+  | { name: 'confirm'; playerId: string }
   | { name: 'celebrate'; memberId: string }
   | { name: 'journal' }
   | { name: 'paywall' };
@@ -52,12 +55,18 @@ export default function App() {
   } else if (view.name === 'play') {
     const m = member(view.memberId);
     screen = <Play key={m.id} state={state} member={m} onUpdate={updateMember}
-      onExit={() => setView(m.wedges.length === 5 ? { name: 'celebrate', memberId: m.id } : { name: 'home' })}
-      onComplete={(updated, entry) => setState((s) => ({
-        ...s,
-        members: s.members.map((x) => (x.id === updated.id ? updated : x)),
-        journal: [...s.journal, entry],
-      }))} />;
+      onExit={() => setView({ name: 'home' })}
+      onHandOver={(letter, now) => {
+        setState((s) => handOver(s, m.id, letter));
+        setView(now ? { name: 'confirm', playerId: m.id } : { name: 'home' });
+      }} />;
+  } else if (view.name === 'confirm') {
+    const p = member(view.playerId);
+    screen = <Confirm key={p.id} state={state} player={p}
+      onConfirm={(feeling, reply) => setState((s) => confirmCard(s, p.id, { feeling, reply }))}
+      onNotYet={() => { setState((s) => sendBack(s, p.id)); setView({ name: 'home' }); }}
+      onDone={() => setView(p.wedges.length === 5 ? { name: 'celebrate', memberId: p.id } : { name: 'home' })}
+      onBack={() => setView({ name: 'home' })} />;
   } else if (view.name === 'celebrate') {
     const m = member(view.memberId);
     screen = <Celebration member={m} onNewRound={() => {
@@ -72,6 +81,7 @@ export default function App() {
   } else {
     screen = <Home state={state}
       onPlay={(m) => setView(m.wedges.length === 5 ? { name: 'celebrate', memberId: m.id } : { name: 'play', memberId: m.id })}
+      onConfirm={(playerId) => setView({ name: 'confirm', playerId })}
       onPaywall={() => setView({ name: 'paywall' })}
       onJournal={() => setView({ name: 'journal' })}
       onEdit={() => setView({ name: 'setup' })} />;

@@ -17,6 +17,17 @@ export function upgradeMember(raw: any): Member {
   const rewards: string[] = Array.isArray(raw.rewards)
     ? raw.rewards
     : typeof raw.reward === 'string' && raw.reward.trim() ? [raw.reward.trim()] : [];
-  const { reward: _old, ...rest } = raw;
-  return { activities: [], extended: [], friends: [], wedges: [], rounds: 0, rewardApproved: false, ...rest, rewards };
+  const { reward: _r, extended: _e, friends: _f, ...rest } = raw;
+  let currentCard = rest.currentCard;
+  let lastRollDate = rest.lastRollDate;
+  if (currentCard) {
+    if (!currentCard.withMemberId) {
+      // An old solo card can't be confirmed by anyone: drop it and let them roll again.
+      currentCard = undefined;
+      lastRollDate = undefined;
+    } else {
+      currentCard = { ...currentCard, type: currentCard.type === 'letter' ? 'letter' : 'task', status: currentCard.status ?? 'todo' };
+    }
+  }
+  return { activities: [], wedges: [], rounds: 0, rewardApproved: false, ...rest, rewards, currentCard, lastRollDate };
 }

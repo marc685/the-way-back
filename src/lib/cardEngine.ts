@@ -9,8 +9,9 @@ const pick = <T>(arr: T[], rng: () => number): T | undefined =>
 
 /**
  * Fill a card's template from the family profiles.
- * Returns null when a slot can't be filled (e.g. no extended family listed),
- * so the engine can skip that card instead of showing "{extended}".
+ * Every card is done with another household member ({member}), who confirms it.
+ * Returns null when a slot can't be filled (e.g. no activity listed),
+ * so the engine can skip that card instead of showing "{activity}".
  */
 export function fillCard(
   card: Card,
@@ -26,7 +27,7 @@ export function fillCard(
   let partner: Member | undefined;
   if (slots.includes('theirActivity')) {
     partner = pick(others.filter((m) => m.activities.length), rng);
-  } else if (slots.includes('member')) {
+  } else {
     partner = pick(others, rng);
   }
 
@@ -34,18 +35,18 @@ export function fillCard(
     member: partner?.name,
     theirActivity: partner ? pick(partner.activities, rng) : undefined,
     activity: pick(player.activities, rng),
-    extended: pick(player.extended, rng),
-    friend: pick(player.friends, rng),
   };
 
   for (const s of slots) if (!values[s]) return null;
+  if (!partner) return null;
 
   return {
     cardId: card.id,
     wedge,
     type: card.type,
     text: template.replace(SLOT_RE, (_, s) => values[s]!),
-    withMemberId: partner?.id,
+    withMemberId: partner.id,
+    status: 'todo',
   };
 }
 

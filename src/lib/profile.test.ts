@@ -28,3 +28,20 @@ describe('profileProblems', () => {
   });
   it('does not require activities', () => expect(profileProblems({ ...m, rewards: ['x'], activities: [] })).toEqual([]));
 });
+
+describe('upgradeMember – cards from older versions', () => {
+  it('drops extended family and friends', () => {
+    const m = upgradeMember({ ...base, rewards: ['x'], extended: ['Gran'], friends: ['the Naidoos'] });
+    expect('extended' in m).toBe(false);
+    expect('friends' in m).toBe(false);
+  });
+  it('turns an old repair card into a normal card waiting to be done', () => {
+    const m = upgradeMember({ ...base, rewards: ['x'], currentCard: { cardId: 'way-1', wedge: 'wayback', type: 'repair', text: 't', withMemberId: 'b' } });
+    expect(m.currentCard).toMatchObject({ type: 'task', status: 'todo' });
+  });
+  it('clears an old solo card so they can roll again', () => {
+    const m = upgradeMember({ ...base, rewards: ['x'], lastRollDate: '2026-11-07', currentCard: { cardId: 'self-1', wedge: 'self', type: 'task', text: 't' } });
+    expect(m.currentCard).toBeUndefined();
+    expect(m.lastRollDate).toBeUndefined();
+  });
+});

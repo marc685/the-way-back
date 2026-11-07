@@ -45,9 +45,6 @@ const [, , base = 'http://localhost:4173', out = 'shots'] = process.argv;
       await shot('rewards-adult');
     } else {
       await click(`+ ${act}`);
-      await click('+ Gran');
-      await page.getByPlaceholder('e.g. the Naidoos').fill('the Naidoos');
-      await page.getByPlaceholder('e.g. the Naidoos').press('Enter');
       if (name === 'Liam') { await click(/Roblox credit/); await click(/A sleepover with a friend/); }
       else await click(/Weekend away/);
       if (!isAdult) {
@@ -62,39 +59,53 @@ const [, , base = 'http://localhost:4173', out = 'shots'] = process.argv;
   await page.getByText("Who's playing today?").waitFor();
   await shot('home');
 
-  // Liam plays until he has all 5 wedges, using parent bonus rolls.
+  // Liam plays until he has all 5 wedges. Each card is confirmed by the other person.
+  check(await page.getByText('Extended family').count() === 0, 'profile no longer asks about extended family');
   const seenTypes = new Set();
   for (let round = 0; round < 5; round++) {
-    await page.getByRole('button', { name: /Liam/ }).click();
+    await page.getByRole('button', { name: /Liam/ }).first().click();
     if (round > 0) await click('Parent: give a bonus roll');
     await click(/Roll the dice/);
     await page.locator('.task-card').waitFor({ timeout: 5000 });
-    const type = (await page.getByRole('button', { name: /We did it|Start writing|think it through/ }).textContent()) || '';
-    if (round === 0) { await shot('card'); await click(/Not today/); await shot('card-not-today'); }
-    const t = (await page.getByRole('button', { name: /We did it|Start writing|think it through/ }).textContent()) || '';
-    if (t.includes('We did it')) {
-      seenTypes.add('task');
-      await page.getByLabel(/How did it go/).fill('We laughed a lot!');
-      await click(/We did it/);
-    } else if (t.includes('Start writing')) {
-      seenTypes.add('letter');
-      await click(/Start writing/);
-      await page.getByLabel('Letter', { exact: true }).fill('Thank you for always being there for me.');
-      await shot('letter');
-      await click(/Done – earn/);
-    } else {
-      seenTypes.add('repair');
-      await click(/think it through/);
-      await page.getByRole('textbox').fill('We argued about screen time.');
-      await click('Next →');
-      await page.getByRole('textbox').fill('I felt angry and Mom felt hurt.');
-      await click('Next →');
-      await page.getByRole('textbox').fill('Make Mom a cup of tea and say sorry.');
-      await shot('repair');
-      await click(/I'll take this step/);
+    if (round === 0) { await shot('card'); await click(/Not today/); }
+    const doIt = async () => {
+      if (await page.getByRole('button', { name: /Write to/ }).count()) {
+        seenTypes.add('letter');
+        await click(/Write to/);
+        await page.getByLabel('Letter', { exact: true }).fill('Thank you for always being there for me.');
+        await click(/Done – give it to/);
+      } else {
+        seenTypes.add('task');
+        await click(/I've done it/);
+      }
+      return (await page.locator('.handover h2').textContent()).replace('Hand the phone to ', '');
+    };
+    const partner = await doIt();
+    if (round === 0) {
+      await shot('handover');
+      await click(/will confirm later/);
+      await page.locator('.banner').waitFor();
+      check(await page.getByText(`Waiting for ${partner}`).count() === 1, 'player row shows who they are waiting for');
+      await shot('home-waiting');
+      await page.locator('.banner').click();
+      await click(/Not yet/);
+      check(await page.locator('.banner').count() === 0, '"Not yet" gives the card back');
+      const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('famjam-state-v1')));
+      check(saved.members.find((m) => m.name === 'Liam').wedges.length === 0, 'no wedge until confirmed');
+      await page.getByRole('button', { name: /Liam/ }).first().click();
+      await doIt();
     }
-    void type;
-    await page.getByText(/You earned the/).waitFor();
+    await click(/is here – confirm now/);
+    await page.getByText(`${partner}, did Liam do this with you?`).waitFor();
+    if (seenTypes.has('letter') && (await page.locator('.paper.read').count())) {
+      check(await page.getByText('Thank you for always being there for me.').count() === 1, `${partner} can read the letter`);
+    }
+    check(await page.getByRole('button', { name: /Yes, we did this/ }).isDisabled(), 'confirmer must choose a feeling first');
+    await page.getByRole('radio', { name: /Loved it/ }).click();
+    await page.getByLabel(/A message back to Liam/).fill(`That was lovely, Liam – from ${partner}`);
+    if (round === 0) await shot('confirm');
+    await click(/Yes, we did this/);
+    await page.getByText(/Liam earned the/).waitFor();
     if (round === 0) await shot('wedge-earned');
     await click(/Back to the family/);
   }
@@ -104,6 +115,7 @@ const [, , base = 'http://localhost:4173', out = 'shots'] = process.argv;
   await shot('celebration');
   await click(/Start a new circle/);
   await click(/Family journal/);
+  check(await page.getByText(/That was lovely, Liam/).count() === 5, 'journal shows the replies from the people who confirmed');
   await shot('journal');
   await click('← Home');
   await click(/Family Plus/);

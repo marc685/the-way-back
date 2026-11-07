@@ -1,6 +1,7 @@
 export type WedgeId = 'self' | 'words' | 'together' | 'wayback' | 'play';
 export type AgeGroup = 'child' | 'teen' | 'adult';
-export type CardType = 'task' | 'letter' | 'repair';
+export type CardType = 'task' | 'letter';
+export type Feeling = 'loved' | 'nice' | 'ok';
 
 export interface Member {
   id: string;
@@ -8,8 +9,6 @@ export interface Member {
   avatar: string;
   age: AgeGroup;
   activities: string[];
-  extended: string[]; // extended family to connect with
-  friends: string[]; // family friends to invite over
   rewards: string[]; // one or more rewards; they pick one to claim when the circle is complete
   rewardApproved: boolean; // parent approval – only needed for children and teens
   wedges: WedgeId[]; // wedges earned this round
@@ -31,19 +30,24 @@ export interface DrawnCard {
   wedge: WedgeId;
   type: CardType;
   text: string;
-  withMemberId?: string;
+  withMemberId: string; // the household member who confirms it
+  status: 'todo' | 'awaiting'; // awaiting = handed over, waiting for the other person to confirm
+  letter?: string; // for letter cards: what the player wrote
 }
 
 export interface JournalEntry {
   id: string;
   cardId: string;
-  memberId: string;
+  memberId: string; // who did the card
   wedge: WedgeId;
   cardText: string;
   date: string;
+  confirmedBy?: string; // member id of the person who confirmed
+  feeling?: Feeling;
+  reply?: string; // message back from the person who confirmed
+  letter?: string;
+  // Older entries (before confirmation existed) may carry these:
   note?: string;
-  letter?: { to: string; body: string; deliver: boolean };
-  repair?: { happened: string; felt: string; step: string };
 }
 
 export interface GameState {

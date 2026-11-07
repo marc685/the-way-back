@@ -71,13 +71,6 @@ export function MemberProfile({ member, index, total, onSave, onBack }: {
         onChange={(activities) => set({ activities })} placeholder="e.g. fishing, baking"
         suggestions={['fishing', 'baking', 'cooking', 'gaming', 'soccer', 'reading', 'drawing', 'hiking', 'music', 'swimming', 'board games', 'gardening']} />
 
-      <ChipInput label="👵 Extended family I'd like to see more" values={m.extended}
-        onChange={(extended) => set({ extended })} placeholder="e.g. Gran, Uncle Pieter"
-        suggestions={['Gran', 'Grandpa', 'Ouma', 'Oupa', 'my aunt', 'my uncle', 'my cousins']} />
-
-      <ChipInput label="🔥 Family friends I'd love to have over for a braai" values={m.friends}
-        onChange={(friends) => set({ friends })} placeholder="e.g. the Naidoos" />
-
       <div className="field" ref={rewardRef}>
         <label>🏆 My rewards for completing the whole circle</label>
         <p className="muted small">Tap as many as you like. When you finish the circle, you choose which one to claim.</p>
