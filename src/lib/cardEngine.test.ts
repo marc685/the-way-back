@@ -49,3 +49,24 @@ describe('drawCard', () => {
     expect(drawCard(DECKS.self, 'self', solo, [solo], { plus: false })).not.toBeNull();
   });
 });
+
+describe('every card in every deck', () => {
+  const full = mk({ name: 'Liam', age: 'child', activities: ['fishing'], extended: ['Gran'], friends: ['the Naidoos'] });
+  const fullAdult = { ...full, age: 'adult' as const };
+  const other = mk({ name: 'Mom', activities: ['baking'] });
+  it('fills completely for child and adult wording, with unique ids', () => {
+    const ids = new Set<string>();
+    for (const [wedge, deck] of Object.entries(DECKS)) {
+      for (const c of deck) {
+        expect(ids.has(c.id)).toBe(false);
+        ids.add(c.id);
+        for (const p of [full, fullAdult]) {
+          const d = fillCard(c, wedge as any, p, [p, other]);
+          expect(d, `${c.id} (${p.age})`).not.toBeNull();
+          expect(d!.text).not.toMatch(/[{}]/);
+        }
+      }
+    }
+    expect(ids.size).toBeGreaterThanOrEqual(100);
+  });
+});
